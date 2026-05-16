@@ -137,7 +137,7 @@ jobs:
           echo "Report size: $SIZE bytes"
 
           # Cap at 55000 bytes for API limits
-          head -c 55000 report.txt > report_safe.txt
+          head -c 28000 report.txt > report_safe.txt
           mv report_safe.txt report.txt
           echo "Final report size: $(wc -c < report.txt) bytes"
 
@@ -296,7 +296,7 @@ jobs:
           GEMINI_STATUS=$(curl -s -w "%{http_code}" \
             -o gemini_response.json \
             --max-time 90 \
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=$GEMINI_API_KEY" \
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$GEMINI_API_KEY" \
             -H "Content-Type: application/json" \
             -d "$GEMINI_PAYLOAD")
 
