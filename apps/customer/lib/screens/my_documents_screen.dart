@@ -7,6 +7,33 @@ import '../theme/app_theme.dart';
 class MyDocumentsScreen extends StatefulWidget {
   const MyDocumentsScreen({super.key});
 
+  static const List<Map<String, Object>> _documents = [
+    {
+      'name': 'Aadhar Card',
+      'status': 'Verified',
+      'icon': Icons.card_membership_rounded,
+      'statusColor': Colors.green,
+    },
+    {
+      'name': 'PAN Card',
+      'status': 'Verified',
+      'icon': Icons.credit_card_rounded,
+      'statusColor': Colors.green,
+    },
+    {
+      'name': 'Business License',
+      'status': 'Pending',
+      'icon': Icons.description_rounded,
+      'statusColor': Colors.orange,
+    },
+    {
+      'name': 'Bank Account',
+      'status': 'Verified',
+      'icon': Icons.account_balance_rounded,
+      'statusColor': Colors.green,
+    },
+  ];
+
   @override
   State<MyDocumentsScreen> createState() => _MyDocumentsScreenState();
 }
@@ -113,7 +140,7 @@ class _MyDocumentsScreenState extends State<MyDocumentsScreen> {
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
                   'Offline mode • Last updated ${_formatLastUpdated(_lastUpdatedLabel)}',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: FreightFairColors.accentDark),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: TruxifyColors.accentDark),
                 ),
               ),
             ListView.separated(
@@ -125,7 +152,7 @@ class _MyDocumentsScreenState extends State<MyDocumentsScreen> {
                 final doc = _documents[index];
                 return Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: (Theme.of(context).brightness == Brightness.dark ? FreightFairColors.darkBorder : FreightFairColors.border)),
+                    border: Border.all(color: (Theme.of(context).brightness == Brightness.dark ? TruxifyColors.darkBorder : TruxifyColors.border)),
                     borderRadius: BorderRadius.circular(12),
                     color: Theme.of(context).colorScheme.surface,
                   ),
@@ -136,10 +163,10 @@ class _MyDocumentsScreenState extends State<MyDocumentsScreen> {
                         width: 44,
                         height: 44,
                         decoration: BoxDecoration(
-                          color: FreightFairColors.accentLight,
+                          color: TruxifyColors.accentLight,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Icon(_iconFor(doc['icon']?.toString()), color: FreightFairColors.accent, size: 22),
+                        child: Icon(_iconFor(doc['icon']?.toString()), color: TruxifyColors.accent, size: 22),
                       ),
                       const SizedBox(width: 14),
                       Expanded(

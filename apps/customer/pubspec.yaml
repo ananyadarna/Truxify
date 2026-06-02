@@ -1,5 +1,5 @@
-name: freightfair
-description: FreightFair customer-side mock Flutter app.
+name: truxify
+description: Truxify customer-side mock Flutter app.
 publish_to: none
 
 version: 1.0.0+1
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  supabase_flutter: ^2.8.3
   flutter_map: ^8.3.0
   flutter_map_cancellable_tile_provider: ^3.0.0
   google_fonts: ^8.1.0
@@ -23,6 +24,7 @@ dependencies:
   uuid: ^4.2.2
   geocoding: ^4.0.0
   geolocator: ^10.1.1
+  shared_preferences: ^2.5.5
 
 dev_dependencies:
   flutter_lints: ^6.0.0

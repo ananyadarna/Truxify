@@ -13,9 +13,7 @@ class _FaqItem {
 class HelpSupportScreen extends StatelessWidget {
   const HelpSupportScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    const faqs = [
+  static const List<_FaqItem> faqs = [
       _FaqItem(
         question: 'How do I book a truck?',
         answer: 'To book a truck, go to Home, enter your pickup and drop locations, select a truck, and confirm your booking.',
@@ -34,6 +32,9 @@ class HelpSupportScreen extends StatelessWidget {
       ),
     ];
 
+  @override
+  Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Help & Support'),
@@ -48,8 +49,8 @@ class HelpSupportScreen extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).brightness == Brightness.dark
-                    ? FreightFairColors.darkAccentLight
-                    : FreightFairColors.accentLight.withValues(alpha: 0.5),
+                    ? TruxifyColors.darkAccentLight
+                    : TruxifyColors.accentLight.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(12),
               ),
               padding: const EdgeInsets.all(16),
@@ -59,10 +60,10 @@ class HelpSupportScreen extends StatelessWidget {
                     width: 40,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: FreightFairColors.accentLight,
+                      color: TruxifyColors.accentLight,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(Icons.help_outline_rounded, color: FreightFairColors.accent, size: 20),
+                    child: const Icon(Icons.help_outline_rounded, color: TruxifyColors.accent, size: 20),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -79,7 +80,7 @@ class HelpSupportScreen extends StatelessWidget {
                         Text(
                           'Contact our support team',
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: FreightFairColors.adaptiveSecondaryText(context),
+                                color: TruxifyColors.adaptiveSecondaryText(context),
                               ),
                         ),
                       ],
@@ -120,7 +121,7 @@ class HelpSupportScreen extends StatelessWidget {
                         child: Text(
                           faq.answer,
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: FreightFairColors.adaptiveSecondaryText(context),
+                                color: TruxifyColors.adaptiveSecondaryText(context),
                               ),
                         ),
                       ),

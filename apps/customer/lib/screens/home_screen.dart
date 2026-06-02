@@ -75,8 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = FreightFairScope.of(context);
+    final controller = TruxifyScope.of(context);
     final now = DateTime.now();
+    final customerFirstName = mockCustomerName.split(' ').first;
     final greeting = _greetingFor(now);
 
     return Scaffold(
@@ -93,13 +94,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(999),
                   border: Border.all(
-                    color: Theme.of(context).brightness == Brightness.dark ? FreightFairColors.darkBorder : FreightFairColors.border,
+                    color: Theme.of(context).brightness == Brightness.dark ? TruxifyColors.darkBorder : TruxifyColors.border,
                   ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.place_rounded, size: 16, color: FreightFairColors.accentDark),
+                    const Icon(Icons.place_rounded, size: 16, color: TruxifyColors.accentDark),
                     const SizedBox(width: 6),
                     Text(_isOffline ? _locationLabel : 'Surat, Gujarat', style: const TextStyle(fontWeight: FontWeight.w700)),
                   ],
@@ -118,11 +119,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('$greeting, Karthik 👋', style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800)),
+            Text('$greeting, $customerFirstName 👋', style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800)),
             const SizedBox(height: 6),
             Text(
               DateFormat('EEEE, d MMMM yyyy').format(now),
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: FreightFairColors.adaptiveSecondaryText(context)),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: TruxifyColors.adaptiveSecondaryText(context)),
             ),
             const SizedBox(height: 26),
             SectionHeader(title: 'Active Shipments', actionLabel: 'See all', onActionTap: () => _showComingSoon(context, 'All shipments')),
@@ -139,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     shipment: shipment,
                     onTap: () {
                       Navigator.of(context).push(
-                        AppPageRoute(builder: (_) => LiveTrackingScreen(orderId: index == 0 ? '#FF20241205' : '#FF20241198')),
+                        AppPageRoute(builder: (_) => LiveTrackingScreen(orderId: mockActiveOrders[index].orderId)),
                       );
                     },
                   );
