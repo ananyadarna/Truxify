@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'supabase_service.dart';
 
 class OrderService {
   OrderService({SupabaseClient? client}) : _providedClient = client;
@@ -25,7 +26,7 @@ class OrderService {
   }) async {
     await _client.from('orders').insert({
       'order_display_id': orderDisplayId,
-      'customer_id': '11111111-1111-1111-1111-111111111111',
+      'customer_id': SupabaseService.requireUserId(),
       'driver_id': driverId,
       'truck_id': truckId,
       'status': 'pending',
@@ -55,15 +56,18 @@ class OrderService {
   }
 
   Future<List<Map<String, dynamic>>> fetchOrders() async {
-    final response = await _client
-        .from('orders')
-        .select()
-        .order('pickup_date', ascending: false);
+  final userId = SupabaseService.requireUserId();
 
-    debugPrint('Orders response: $response');
+  final response = await _client
+      .from('orders')
+      .select()
+      .eq('customer_id', userId)
+      .order('pickup_date', ascending: false);
 
-    return List<Map<String, dynamic>>.from(response);
-  }
+  debugPrint('Orders response: $response');
+
+  return List<Map<String, dynamic>>.from(response);
+}
 
   Future<List<Map<String, dynamic>>> fetchOrderTimeline(
     String orderDisplayId,
@@ -78,22 +82,31 @@ class OrderService {
   }
 
   Future<List<Map<String, dynamic>>> fetchActiveOrders() async {
-    final response = await _client
-        .from('orders')
-        .select()
-        .inFilter('status', ['pending', 'active', 'in_transit']);
+  final userId = SupabaseService.requireUserId();
 
-    return List<Map<String, dynamic>>.from(response);
-  }
+  final response = await _client
+      .from('orders')
+      .select()
+      .eq('customer_id', userId)
+      .inFilter('status', ['pending', 'active', 'in_transit']);
+
+  return List<Map<String, dynamic>>.from(response);
+}
 
   Future<List<Map<String, dynamic>>> fetchHistoryOrders() async {
-    final response = await _client.from('orders').select().inFilter('status', [
-      'completed',
-      'delivered',
-      'payment_released',
-      'cancelled',
-    ]);
+  final userId = SupabaseService.requireUserId();
 
-    return List<Map<String, dynamic>>.from(response);
-  }
+  final response = await _client
+      .from('orders')
+      .select()
+      .eq('customer_id', userId)
+      .inFilter('status', [
+        'completed',
+        'delivered',
+        'payment_released',
+        'cancelled',
+      ]);
+
+  return List<Map<String, dynamic>>.from(response);
+}
 }
