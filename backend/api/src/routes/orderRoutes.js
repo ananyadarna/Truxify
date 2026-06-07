@@ -557,15 +557,15 @@ router.put('/:id/milestones', authenticate, requireRole(['driver']), async (req,
     'Arriving': 'arriving',
   };
 
+  // Prevent direct transition to Delivered - must use OTP verification
+  if (milestone === 'Delivered') {
+    return res.status(400).json({ error: 'Cannot set Delivered milestone directly. Use /verify-delivery endpoint to confirm delivery.' });
+  }
+
   if (!milestone || !milestoneMap[milestone]) {
     return res.status(400).json({
       error: 'Invalid milestone supplied.'
     });
-  }
-
-  // Prevent direct transition to Delivered - must use OTP verification
-  if (milestone === 'Delivered') {
-    return res.status(400).json({ error: 'Cannot set Delivered milestone directly. Use /verify-delivery endpoint to confirm delivery.' });
   }
 
   try {

@@ -978,8 +978,6 @@ begin
       v_confirmed, p_amount;
   end if;
 
-<<<<<<< HEAD:docs/supabase_schema.sql
-alter table driver_milestones enable row level security;
 
 
 -- ────────────────────────────────────────────────────────────────────────────
@@ -1398,4 +1396,3 @@ on conflict do nothing;
 --   2. Run `cd backend/api && npm install && npm run dev`
 --   3. Test with: GET /api/drivers/stats (with x-test-mode + x-user-id headers)
 -- ============================================================================
->>>>>>> upstream/main:docs/supabase_setup.sql
